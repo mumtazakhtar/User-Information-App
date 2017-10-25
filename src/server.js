@@ -32,14 +32,16 @@ app.get('/search', function(reqSearch, resSearch){
 app.post('/searchName', function(reqPost, resPost, next){
 	
 	let name = reqPost.body.name;
-	console.log(name);
+	let input = name.toLowerCase();
+	console.log(input);
 
 	jsonReaderModule.jsonFileReader(filename, function(usersJson){
-		// usersJson.forEach(function(user){
-			
-			for(let i = 0; i < usersJson.length; i++){
-	
-			 if(usersJson[i].firstname === name || usersJson[i].lastname === name){
+		
+        
+		for(let i = 0; i < usersJson.length; i++){
+
+
+			if(usersJson[i].firstname.toLowerCase() === input || usersJson[i].lastname.toLowerCase() === name){
 				
 				let userDetails = ` Firstname: ${usersJson[i].firstname}  Lastname: ${usersJson[i].lastname}  Email: ${usersJson[i].email}` ;
 				resPost.render('search.pug', {
@@ -77,9 +79,7 @@ app.post('/register', function(reqRegister,resRegister){
 	})
 
 	let successMessage = `Hi ${reqRegister.body.firstName}! Thank you registering with us :)`
-	//console.log(resRegister)
-
-	resRegister.render('login.pug', {
+		resRegister.render('login.pug', {
 
 		userDetails: successMessage
 
