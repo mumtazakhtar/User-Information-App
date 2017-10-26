@@ -57,8 +57,8 @@ app.post('/searchName', function(reqPost, resPost, next){
 })
 
 //login page
-app.get('/login', function(reqLogin,resLogin){
-	 resLogin.render('login.pug')
+app.get('/signup', function(reqLogin,resLogin){
+	 resLogin.render('signup.pug')
 })
 
 app.post('/register', function(reqRegister,resRegister){
