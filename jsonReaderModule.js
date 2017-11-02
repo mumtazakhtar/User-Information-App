@@ -5,7 +5,7 @@ exports.jsonFileReader = function (filename, callback) {
 		if(err) {
 			throw err;
 		}
-		var usersData = JSON.parse(data);
-		callback(usersData);
+		var usersJson = JSON.parse(data);
+		callback(usersJson);
 	})
 }

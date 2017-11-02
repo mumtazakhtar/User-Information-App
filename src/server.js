@@ -36,17 +36,14 @@ app.post('/searchName', function(reqPost, resPost, next){
 	console.log(input);
 
 	jsonReaderModule.jsonFileReader(filename, function(usersJson){
-		
-        
-		for(let i = 0; i < usersJson.length; i++){
-
-
-			if(usersJson[i].firstname.toLowerCase() === input || usersJson[i].lastname.toLowerCase() === name){
-				
-				let userDetails = ` Firstname: ${usersJson[i].firstname}  Lastname: ${usersJson[i].lastname}  Email: ${usersJson[i].email}` ;
-				resPost.render('search.pug', {
+     
+	for(let i = 0; i < usersJson.length; i++){
+	  if(usersJson[i].firstname.toLowerCase() === input || usersJson[i].lastname.toLowerCase() === name){
+        let userDetails = ` Firstname: ${usersJson[i].firstname}  Lastname: ${usersJson[i].lastname}  Email: ${usersJson[i].email}` ;
+		    resPost.render('search.pug', {
 					usersJson: userDetails
 				})
+		    
 				return next();
 			}
 		}
@@ -71,22 +68,11 @@ app.post('/register', function(reqRegister,resRegister){
 
 	jsonReaderModule.jsonFileReader(filename, function(usersJson){
 		usersJson.push(details)
-
-
 		let userData = JSON.stringify(usersJson);  
 		fs.writeFile('../users.json', userData); 
-
-	})
-
-	let successMessage = `Hi ${reqRegister.body.firstName}! Thank you registering with us :)`
-		resRegister.render('login.pug', {
-
-		userDetails: successMessage
-
-	}) 
-})
-
-
+    })
+	resRegister.redirect('/')
+});
 
 app.listen(4000,function(){
 	console.log("user app is listening at port 4000");

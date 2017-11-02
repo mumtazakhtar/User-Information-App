@@ -4,6 +4,7 @@ h4 {
 }
 h2{
 	text-align: center;
+	color: white;
 }
 h3{
 	color: darkblue;
@@ -17,10 +18,18 @@ p{
 	text-align: center;
 	font-size: 25px;
 	font-style: bold;
+	color: white;
 }
-body{
-	background-image: url('./blue image.jpg');
+html { 
+  background: url('./bckgroundimage.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
+/*body{
+	background-image: url('./bckgroundimage.jpg');
+}*/
 
 .container {
 	
