@@ -1,19 +1,35 @@
 doctype html
 html
-	head
-		link(rel='stylesheet', type='text/css', href='./style.css')
-	body
-		
-		.container
-		fieldset.fieldsetlogin
-			form.login-form(action='/register', method='post')
-				h4 Register here...
-				input.fname-login(type='text', name='firstName', placeholder='Enter firstname', required='')
-				input.lname-login(type='text', name='lastName', placeholder='Enter lastname', required='')
-				input.email(type='email', name='eMail', placeholder='name@email.com', required='')
-				input.submit-login(type='submit', name='submit', value='SIGN-UP')
+  head
+    link(rel='stylesheet', type='text/css', href='style.css')
+  body
+    .navigation
+      ul.nav
+        li   
+         img(src='userlogo.png')
+        li
+          a(href="index.pug") Home
+        li
+          a(href="search.pug") Search User
+        li
+          a(href="signup.pug") Sign Up
+        li
+          a(href="users.pug") All Users
+    if message
+      p.message= message
+    div.container
+      fieldset.fieldsetlogin
+        form.login-form(action='/register', method='post')
+          h4 Register here...
+          input.fname-login(type='text', name='firstName', placeholder='Enter firstname', required='')
+          input.lname-login(type='text', name='lastName', placeholder='Enter lastname', required='')
+          input.email(type='email', name='eMail', placeholder='name@email.com', required='')
+          input.submit-login(type='submit', name='submit', value='SIGN-UP')
+    
+    if userDetails
+      p= userDetails
+    else
+      p= error
+    
 
-		if userDetails
-			p= userDetails
-		else
-			p= error
+    

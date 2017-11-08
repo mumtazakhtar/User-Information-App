@@ -1,18 +1,37 @@
 doctype html
 html
-	head
-		link(rel='stylesheet', type='text/css', href='./style.css')
+  head
+    link(rel='stylesheet', type='text/css', href='style.css')
+  body
+    .navigation
+      ul.nav
+        li
+     
+         img(src='userlogo.png')
+        li
+          a(href="index.pug") Home
+        li
+          a(href="search.pug") Search User
+        li
+          a(href="signup.pug") Sign Up
+        li
+          a(href="users.pug") All users
+    .container     
+      form.form
+        input.search(type='txt',   name='username',  placeholder='Enter your firstname', autocomplete='off')    
+        input.submit(type='button', value="search")
+        div.username
+          ul.content
+          p.display
+        
+    script(src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js')
+    script(src="js/index.js")
+      
+      
+      
 
-	body
-		
-		.container
-			fieldset.fieldset-search
-				form.search-form(action='/searchName', method='post')
-					h4 Search here
-					input.name-search(type='text', name='name', placeholder='Enter firstname or lastname', required='')
-					input.submit-search(type='submit', name='submit', value='Search')
+      
+        
+      
+      
 
-		if usersJson
-			p= usersJson
-		else
-			p= error
