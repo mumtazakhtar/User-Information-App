@@ -1,63 +1,68 @@
-const express = require('express');
-const app = express();
-const fs = require('fs');
+var express = require('express');
+var bodyParser = require('body-parser');
+var path = require('path');
+var fs = require('fs');
 
-const bodyParser = require("body-parser");
+var app  = express();
 
-app.set('views', './views');
 app.set('view engine', 'pug');
+app.set('views','./views');
 
 app.use(express.static('../public'));
+app.use(express.static('../public/images'));
+app.use(express.static('../public/css'));
+app.use(express.static('../public/js'));
+
 app.use(bodyParser.urlencoded({extended:true}));
 
+//json reader module
 const jsonReaderModule = require('../jsonReaderModule.js');
 var filename = '../users.json';
 
+//default page
+app.get('/',function(req,res){
+	res.render('index.pug')
+})
+//index page
+app.get('/index.pug',function(req,res){
+	res.render('index.pug')
+})
+//search page
+app.get('/search.pug',function(req,res){
+	res.render('search.pug')
+})
 
-app.get('/', function(reqAll,resAll){
+//ajax request search bar
+app.get('/submit',function(req,res){
+	var text = req.query.text;
+	console.log(text);
+	fs.readFile('../users.json', function(err,data){
+		if(err){
+			throw err
+		}
+		var parsedData = JSON.parse(data);
+		var output = parsedData.filter( function(element){   
+			return element.firstname.toLowerCase().startsWith(text.toLowerCase());
+		})	
+		res.send({output : output})		
+	})
+
+})
+//send all users info 
+app.get('/users.pug', function(req,res){
 	jsonReaderModule.jsonFileReader(filename, function(usersJson){
-		resAll.render('index',{
+		res.render('users.pug',{
 			userData: usersJson
 		});
 	});
-});
-
-//search bar
-
-app.get('/search', function(reqSearch, resSearch){
-
-	resSearch.render('search.pug')
+	 
 })
 
-app.post('/searchName', function(reqPost, resPost, next){
-	
-	let name = reqPost.body.name;
-	let input = name.toLowerCase();
-	console.log(input);
-
-	jsonReaderModule.jsonFileReader(filename, function(usersJson){
-     
-	for(let i = 0; i < usersJson.length; i++){
-	  if(usersJson[i].firstname.toLowerCase() === input || usersJson[i].lastname.toLowerCase() === name){
-        let userDetails = ` Firstname: ${usersJson[i].firstname}  Lastname: ${usersJson[i].lastname}  Email: ${usersJson[i].email}` ;
-		    resPost.render('search.pug', {
-					usersJson: userDetails
-				})
-		    
-				return next();
-			}
-		}
-		resPost.render('search.pug', {
-			usersJson: `${name} not found. please check!`
-		})
-	})
-})
-
-//login page
-app.get('/signup', function(reqLogin,resLogin){
+//get signup page
+app.get('/signup.pug', function(reqLogin,resLogin){
 	 resLogin.render('signup.pug')
-})
-
+}) 
+//store form data in json
 app.post('/register', function(reqRegister,resRegister){
 	
 	let details = {
@@ -71,11 +76,15 @@ app.post('/register', function(reqRegister,resRegister){
 		let userData = JSON.stringify(usersJson);  
 		fs.writeFile('../users.json', userData); 
     })
-	resRegister.redirect('/')
+    const message = "Thanks for registering with us!"
+	resRegister.render('signup.pug',{
+		message:message
+
+	})
 });
 
 app.listen(4000,function(){
-	console.log("user app is listening at port 4000");
+	console.log('app is listening at port 4000')
 })
 
 

@@ -1,11 +1,12 @@
+doctype html
 html
   head
     link(rel='stylesheet', type='text/css', href='style.css')
   body
     .navigation
       ul.nav
-        li.logo   
-         img(src='userlogo.png')
+        li
+          img(src='userlogo.png')
         li
           a(href="index.pug") Home
         li
@@ -14,6 +15,9 @@ html
           a(href="signup.pug") Sign Up
         li
           a(href="users.pug") All Users
-    .aboutapp
-      p.para-about
-        this USER INFORMATION APPLICATION..<br>Here you can search for a user in my database,<br> Register in my database and also,<br> You can View all the users who are already registered.
+    .displayusers
+      h3 All users in my database
+        each name in userData
+          h2= name.firstname
+
+    
