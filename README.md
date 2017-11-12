@@ -8,8 +8,8 @@ This app lets the user register themselves,search for the existing users and vie
 
 ## Table of contents
 
-- Frameworks used](#Frameworks used)
-- usage](#usage)
+- [Frameworks used](#Frameworks used)
+- [usage](#usage)
 
 ## Frameworks used
 
@@ -26,5 +26,5 @@ This app lets the user register themselves,search for the existing users and vie
 * npm install
 * localhost:4000
 
-###Note
+### Note
 * By default this applicationn runs on port 4000.
