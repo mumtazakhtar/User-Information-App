@@ -8,10 +8,10 @@ This app lets the user register themselves,search for the existing users and vie
 
 ## Table of contents
 
-- [Frameworks used](#Frameworks used)
+- [frameworks](#frameworks)
 - [usage](#usage)
 
-## Frameworks used
+## Frameworks
 
 * Express js
 * Ajax
